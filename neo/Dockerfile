@@ -1,29 +1,16 @@
-FROM java:openjdk-8-jre
+FROM neo4j:2.3.3
+MAINTAINER Thoba Lose "lose.thoba@gmail.com"
 
-ENV NEO4J_SHA256 e1da51163eb18380623788eabea34dfe23ee21c99deca4e7922094b0d242e805
-ENV NEO4J_URI http://dist.neo4j.org/neo4j-community-3.0.4-unix.tar.gz
+ENV GRAPHAWARE_PROD_URL http://products.graphaware.com/download
 
+RUN wget ${GRAPHAWARE_PROD_URL}/framework-server-community/graphaware-server-community-all-2.3.3.37.jar \
+  -P /var/lib/neo4j/plugins/
 
+RUN wget ${GRAPHAWARE_PROD_URL}/neo4j-to-elasticsearch/graphaware-neo4j-to-elasticsearch-2.3.3.37.1.jar \
+  -P /var/lib/neo4j/plugins/
 
-RUN curl --fail --silent --show-error --location --output neo4j.tar.gz $NEO4J_URI \
-    && echo "$NEO4J_SHA256 neo4j.tar.gz" | sha256sum --check --quiet - \
-    && tar --extract --file neo4j.tar.gz --directory /var/lib \
-    && mv /var/lib/neo4j-* /var/lib/neo4j \
-    && rm neo4j.tar.gz
+COPY neo4j-server.properties conf/
 
-WORKDIR /var/lib/neo4j
+EXPOSE 7474 7473
 
-RUN wget http://products.graphaware.com/download/framework-server-community/graphaware-server-community-all-3.0.4.43.jar -P plugins/
-RUN wget http://products.graphaware.com/download/neo4j-to-elasticsearch/graphaware-neo4j-to-elasticsearch-3.0.4.43.6.jar -P plugins/
-RUN ls plugins
-RUN mv data /data \
-    && ln --symbolic /data
-
-VOLUME /data
-
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-
-EXPOSE 7474 7473 7687
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["neo4j"]
