@@ -3,7 +3,7 @@ version: '2'
 services:
   neo4j-gas:
     restart: always
-    build: .
+    build: ./neo/
     image: neo4j-gas
     container_name: neo4j-gas
     environment:
