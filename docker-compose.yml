@@ -1,0 +1,25 @@
+
+version: '2'
+services:
+  neo4j-gas:
+    restart: always
+    build: .
+    image: neo4j-gas
+    container_name: neo4j-gas
+    environment:
+      NEO4J_AUTH: none
+      ES: es-gas
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+  es-gas:
+    restart: always
+    build: ./es/
+    image: es-gas
+    container_name: es-gas
+    # environment:
+    #   NEO4J_AUTH: none
+    depends_on:
+      - neo4j-gas
+    ports:
+      - "9200:9200"
