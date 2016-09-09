@@ -1,6 +1,13 @@
 # gas
 
-Graph-Aided Search
+A `docker-compose` setup for the [Graph-Aided Search](http://graphaware.com/neo4j/2016/04/20/graph-aided-search-the-rise-of-personalised-content.html) demo.
+
+This setup will automate the configuration and start-up of:
+* ElasticSearch `v2.3.2` on port `9200` with the [Graph-Aided-Search plugin](https://github.com/graphaware/graph-aided-search)
+* Neo4j `v2.3.3` database on port `7474` with the [Graphaware Framework](http://products.graphaware.com/?dir=framework-server-community) and [Elasticsearch Plugin](https://github.com/graphaware/neo4j-to-elasticsearch), and
+* CSV sources in the `/import` directory of Neo4j
+
+### Getting up and running
 
 ```sh
 $ docker-compose up -d
@@ -13,6 +20,7 @@ You should see:
 {"acknowledged":true}
 ```
 Head on to [localhost:7474](http://localhost:7474) and start the import on the Neo4j browser:
+
 ```
 CREATE CONSTRAINT ON (n:Movie) ASSERT n.objectId IS UNIQUE;
 
@@ -43,4 +51,16 @@ LOAD CSV FROM "file:///ml-100k/u.data" AS line FIELDTERMINATOR '\t'
 MATCH (u:User {objectId: toInt(line[1])})
 MATCH (p:Movie {objectId: toInt(line[0])})
 CREATE UNIQUE (u)-[:LIKES {rate: ROUND(toFloat(line[2])), timestamp: line[3]}]->(p);
+```
+
+Try a simple query:
+
+```sh
+curl -X POST http://localhost:9200/neo4j-index/Movie/_search -d '{
+  "query" : {
+      "bool": {
+        "should": [{"match": {"title": "love"}}]
+      }
+  }
+}';
 ```
