@@ -2,14 +2,14 @@
 
 Graph-Aided Search
 
-```
+```sh
 $ docker-compose up -d
 $ docker-compose logs
 $ curl -XPUT "http://localhost:9200/neo4j-index/_settings?index.gas.neo4j.hostname=http://localhost:7474&index.gas.enable=true"
 ```
 You should see:
 
-```
+```sh
 {"acknowledged":true}
 ```
 Head on to [localhost:7474](http://localhost:7474) and start the import on the Neo4j browser:
@@ -27,7 +27,7 @@ LOAD CSV FROM "file:///ml-100k/u.item" AS line FIELDTERMINATOR '|'
 CREATE (:Movie {objectId: toInt(line[0]), title: line[1], date: line[2], imdblink: line[4]});
 ```
 Check the ElasticSearch indices status
-```
+```sh
 $ curl -XGET http://localhost:9200/_cat/indices
 #yellow open neo4j-index 5 1 2625 0 475.3kb 475.3kb
 
