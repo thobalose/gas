@@ -23,6 +23,16 @@ You should see:
 ```sh
 {"acknowledged":true}
 ```
+*If you get:*
+
+```sh
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"},"status":404}t
+```
+Create the index with curl and re-run:
+
+```sh
+$ curl -XPUT 'http://localhost:9200/neo4j-index'
+```
 Head on to [localhost:7474](http://localhost:7474) and start the import on the Neo4j browser:
 
 ```
