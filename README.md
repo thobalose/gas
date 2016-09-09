@@ -12,6 +12,10 @@ This setup will automate the configuration and start-up of:
 ```sh
 $ docker-compose up -d
 $ docker-compose logs
+```
+Configure GAS by defining Neo4j URL and enabling it:
+
+```sh
 $ curl -XPUT "http://localhost:9200/neo4j-index/_settings?index.gas.neo4j.hostname=http://localhost:7474&index.gas.enable=true"
 ```
 You should see:
