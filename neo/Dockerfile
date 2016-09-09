@@ -17,7 +17,3 @@ RUN mkdir /import \
   && wget ${DATASETS} -P /import/ \
   && unzip /import/ml-100k.zip -d /import/ \
   && rm /import/ml-100k.zip
-
-EXPOSE 7474 7473
-
-CMD ["neo4j"]

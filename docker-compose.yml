@@ -9,7 +9,6 @@ services:
       NEO4J_AUTH: none
       ES_URI: es-gas
     ports:
-      - "7687:7687"
       - "7474:7474"
   es-gas:
     restart: always
