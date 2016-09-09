@@ -15,8 +15,6 @@ services:
     build: ./es/
     image: es-gas
     container_name: es-gas
-    # environment:
-    #   NEO4J_AUTH: none
     depends_on:
       - neo4j-gas
     ports:
