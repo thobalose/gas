@@ -26,14 +26,16 @@ USING PERIODIC COMMIT 500
 LOAD CSV FROM "file:///ml-100k/u.item" AS line FIELDTERMINATOR '|'
 CREATE (:Movie {objectId: toInt(line[0]), title: line[1], date: line[2], imdblink: line[4]});
 ```
-Check the ElasticSearch indices status
+Check the ElasticSearch indices status:
+
 ```sh
 $ curl -XGET http://localhost:9200/_cat/indices
-#yellow open neo4j-index 5 1 2625 0 475.3kb 475.3kb
+yellow open neo4j-index 5 1 2625 0 475.3kb 475.3kb
 
 $ curl -XGET http://localhost:9200/neo4j-index/User/_search
 $ curl -XGET http://localhost:9200/neo4j-index/Movie/_search
 ```
+
 Import relationships:
 ```
 USING PERIODIC COMMIT 500
