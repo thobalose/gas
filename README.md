@@ -26,7 +26,7 @@ You should see:
 *If you get:*
 
 ```sh
-{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"},"status":404}t
+{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"neo4j-index","index":"neo4j-index"},"status":404}
 ```
 Create the index with curl and re-run:
 
